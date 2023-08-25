@@ -15,12 +15,9 @@ const loadItem = () => {
 };
 
 const printItem = data => {
-  console.log(data);
-
   const img = document.querySelector(".container img");
   img.src = data.imageUrl;
   img.alt = data.name;
-  console.log(img);
   document.getElementById("id").innerText += data._id;
   document.getElementById("name").innerText += data.name;
   document.getElementById("description").innerText += data.description;
