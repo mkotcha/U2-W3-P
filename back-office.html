@@ -14,7 +14,7 @@
 
   <body class="bg-body-secondary">
     <header>
-      <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <nav class="navbar navbar-expand-md bg-body-tertiary">
         <div class="container-fluid">
           <a class="navbar-brand" href="#">Navbar</a>
           <button
@@ -42,8 +42,8 @@
     </header>
     <main>
       <div class="container my-5">
-        <div class="row row-cols-lg-2 justify-content-center bg-body-primary">
-          <form id="my-form ">
+        <div class="row row-cols-lg-2 justify-content-center bg-body-tertiary py-3">
+          <form id="my-form">
             <div class="mb-3 row">
               <label for="inputPassword" class="col-md-2 col-form-label">name</label>
               <div class="col-md-10">
@@ -76,13 +76,63 @@
             </div>
 
             <div class="d-flex">
-              <button type="submit" class="btn btn-primary me-auto">Create</button>
-              <!-- <button class="btn btn-danger d-none" type="button"><i class="bi bi-trash"></i></button> -->
+              <div class="me-auto">
+                <button type="submit" class="btn btn-primary">Create</button>
+                <button
+                  type="button"
+                  class="btn btn-secondary me-auto"
+                  data-bs-toggle="modal"
+                  data-bs-target="#resetModal">
+                  Reset
+                </button>
+              </div>
+              <button
+                id="delete"
+                class="btn btn-danger d-none"
+                type="button"
+                data-bs-toggle="modal"
+                data-bs-target="#deleteModal">
+                <i class="bi bi-trash"></i>
+              </button>
             </div>
           </form>
         </div>
       </div>
     </main>
+    <section>
+      <!-- Modal reset-->
+      <div class="modal fade" id="resetModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Alert!</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">you will loose all unsave data</div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button id="reset" type="button" class="btn btn-primary">Reset</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Modal delete -->
+      <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Alert!</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">the item bil be permanently deleted!</div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button id="delete-confirm" type="button" class="btn btn-primary">Delete</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"

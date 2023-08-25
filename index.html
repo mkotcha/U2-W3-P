@@ -16,6 +16,9 @@
       <nav class="navbar navbar-expand-md bg-body-tertiary">
         <div class="container-fluid">
           <a class="navbar-brand" href="#">Item shop</a>
+          <div id="spinner" class="spinner-border me-2" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
           <button
             class="navbar-toggler"
             type="button"
@@ -38,16 +41,20 @@
           </div>
         </div>
       </nav>
+      <div id="liveAlertPlaceholder"></div>
+      <button id="alert" type="button" class="btn btn-danger d-none" id="liveAlertBtn">Show live alert</button>
     </header>
     <main>
       <div class="container my-5">
         <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 row-cols-xxl-6 g-2"></div>
       </div>
     </main>
+
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
       crossorigin="anonymous"></script>
+
     <script src="assets/js/script.js"></script>
   </body>
 </html>

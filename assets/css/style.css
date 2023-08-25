@@ -10,3 +10,7 @@
   height: 15vw; */
   object-fit: cover;
 }
+
+#img-detail {
+  max-width: 100%;
+}

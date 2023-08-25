@@ -2,23 +2,29 @@ const URL = "https://striveschool-api.herokuapp.com/api/product/";
 const authorization =
   "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGU4NTIyMGMwMzRmZjAwMTQwM2Y0Y2QiLCJpYXQiOjE2OTI5NDY5NzYsImV4cCI6MTY5NDE1NjU3Nn0.p9fB1--hZFAaALaGtJPRblqlUTyfBsBz1cNxD_Nckwo";
 
+const alert = event => {
+  console.log(event.target);
+  event.target.click();
+  document.getElementById("alert").click();
+};
+
 window.onload = () => {
+  document.getElementById("alert").addEventListener("click", alert);
+  // const alert = bootstrap.Alert.getOrCreateInstance("#myAlert");
   loadItems();
+  // alert.close();
 };
 
 const loadItems = () => {
   fetch(URL, { headers: { authorization } })
+    .then(handleErrors)
     .then(resp => resp.json())
     .then(data => data.forEach(elm => printItem(elm)))
     .catch(err => console.log(err));
 };
 
 const printItem = elm => {
-  console.log(elm);
-  const img = document.querySelector(".container img");
-  img.src = data.imageUrl;
-  img.alt = data.name;
-  console.log(img);
+  if (document.getElementById("spinner")) document.getElementById("spinner").remove();
   const div = document.createElement("div");
   div.style = "";
   div.innerHTML = `<div class="card ">
@@ -30,13 +36,41 @@ const printItem = elm => {
                         <p class="card-text">
                         ${elm.description}
                         </p>
-                        <div class="d-flex">
-                          <p class="card-text fw-bold me-auto">
+                        
+                          <p class="card-text fw-bold">
                           ${elm.price} €
                           </p>
-                          <a href="detail.html?id=${elm._id}" class="text-secondary">more info</a>
-                        </div>
+                          <a href="back-office.html?id=${elm._id}" class="btn btn-primary btn-sm">edit</a>
+                          <a href="detail.html?id=${elm._id}" class="btn btn-primary btn-sm">more info</a>
+                        
                     </div>
                     </div>`;
   document.querySelector("main > .container > .row").appendChild(div);
 };
+
+function handleErrors(response) {
+  if (!response.ok) {
+    console.log("errore della malora");
+    throw Error(response.statusText);
+  }
+  return response;
+}
+const alertPlaceholder = document.getElementById("liveAlertPlaceholder");
+const appendAlert = (message, type) => {
+  const wrapper = document.createElement("div");
+  wrapper.innerHTML = [
+    `<div class="alert alert-${type} alert-dismissible" role="alert">`,
+    `   <div>${message}</div>`,
+    '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+    "</div>",
+  ].join("");
+
+  alertPlaceholder.append(wrapper);
+};
+
+const alertTrigger = document.getElementById("liveAlertBtn");
+if (alertTrigger) {
+  alertTrigger.addEventListener("click", () => {
+    appendAlert("Nice, you triggered this alert message!", "success");
+  });
+}

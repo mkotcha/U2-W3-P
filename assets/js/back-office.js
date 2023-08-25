@@ -4,19 +4,20 @@ const authorization =
 const id = new URLSearchParams(window.location.search).get("id");
 
 document.addEventListener("DOMContentLoaded", event => {
-  console.log(document.querySelector("#my-form"));
-  console.log("dio cane maiale");
-  document.querySelector("#my-form").addEventListener("submit", addIte);
+  document.getElementById("my-form").addEventListener("submit", addItem);
+  document.getElementById("reset").addEventListener("click", resetForm);
 
+  const myModal = document.getElementById("myModal");
+  const myInput = document.getElementById("myInput");
   if (id) {
-    document.querySelector("form#my-form button:last-child").addEventListener("click", deleteItem);
-    document.querySelector("form#my-form button:last-child").classList.remove("d-none");
+    document.getElementById("delete-confirm").addEventListener("click", deleteItem);
+    document.getElementById("delete").classList.remove("d-none");
+    printItem(id);
   }
 });
 
 const addItem = event => {
   event.preventDefault();
-  console.log(event.target);
   create(event);
 };
 
@@ -42,7 +43,7 @@ const create = async event => {
     imageUrl: document.getElementById("image-url").value,
     price: parseInt(document.getElementById("price").value),
   };
-  console.log(myItem);
+
   try {
     console.log(URL + (id ? id : ""));
     const resp = await fetch(URL + (id ? id : ""), {
@@ -56,13 +57,14 @@ const create = async event => {
 
     if (resp.ok) {
       const newItemObj = await resp.json();
-      console.log(newItemObj);
 
       if (id) {
-        alert("Item con l'id: " + newEventObj._id + " è stato modificato con successo!");
+        alert("Item id: " + newItemObj._id + " UPDATED!");
+        window.open(`detail.html?id=${newItemObj._id}`, "_self");
       } else {
-        alert("Item creato con successo, l'id è: " + newItemObj._id);
-        event.target.reset();
+        alert("Item CREATED!, id: " + newItemObj._id);
+        // event.target.reset();
+        window.open(`detail.html?id=${newItemObj._id}`, "_self");
       }
     }
   } catch (error) {
@@ -73,6 +75,14 @@ const create = async event => {
 const deleteItem = () => {
   fetch(URL + id, { method: "DELETE", headers: { authorization } })
     .then(response => response.json())
-    .then(data => alert("hai eliminato " + data.name + "con id: " + data._id))
+    .then(data => {
+      alert(data.name + " id: " + data._id + " DELETED!");
+      window.open("back-office.html", "_self");
+    })
     .catch(err => console.log(err));
+};
+
+const resetForm = event => {
+  // document.getElementById("my-form").reset();
+  window.open("back-office.html", "_self");
 };
