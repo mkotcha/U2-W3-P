@@ -22,6 +22,7 @@ const loadItems = () => {
 
 function handleErrors(resp) {
   if (!resp.ok) {
+    if (document.getElementById("spinner")) document.getElementById("spinner").remove();
     console.log(resp.status);
     let customError = "";
 
@@ -33,7 +34,7 @@ function handleErrors(resp) {
         customError = "Not Found 404";
         break;
       case 500:
-        customError = "General Server Error";
+        customError = "General Server Error!";
         break;
 
       default:

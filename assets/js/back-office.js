@@ -18,6 +18,7 @@ const addItem = event => {
 };
 
 const printItem = data => {
+  if (document.getElementById("spinner")) document.getElementById("spinner").remove();
   document.getElementById("name").value = data.name;
   document.getElementById("description").value = data.description;
   document.getElementById("brand").value = data.brand;
@@ -36,8 +37,7 @@ const create = async () => {
   };
 
   try {
-    console.log(URL + (id ? id : ""));
-    const resp = await fetch(URL + (id ? id : ""), {
+    const resp = await fetch(URL + (id ? id : "") + "x", {
       method: id ? "PUT" : "POST",
       body: JSON.stringify(myItem),
       headers: {
@@ -45,7 +45,7 @@ const create = async () => {
         "Content-Type": "application/json",
       },
     });
-
+    resp = handleErrors(resp);
     if (resp.ok) {
       const newItemObj = await resp.json();
 

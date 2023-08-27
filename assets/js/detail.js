@@ -3,6 +3,7 @@ window.onload = () => {
 };
 
 const printItem = data => {
+  if (document.getElementById("spinner")) document.getElementById("spinner").remove();
   const img = document.querySelector(".container img");
   img.src = data.imageUrl;
   img.alt = data.name;
