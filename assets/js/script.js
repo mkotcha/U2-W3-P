@@ -2,17 +2,8 @@ const URL = "https://striveschool-api.herokuapp.com/api/product/";
 const authorization =
   "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGU4NTIyMGMwMzRmZjAwMTQwM2Y0Y2QiLCJpYXQiOjE2OTI5NDY5NzYsImV4cCI6MTY5NDE1NjU3Nn0.p9fB1--hZFAaALaGtJPRblqlUTyfBsBz1cNxD_Nckwo";
 
-const alert = event => {
-  console.log(event.target);
-  event.target.click();
-  document.getElementById("alert").click();
-};
-
 window.onload = () => {
-  document.getElementById("alert").addEventListener("click", alert);
-  // const alert = bootstrap.Alert.getOrCreateInstance("#myAlert");
   loadItems();
-  // alert.close();
 };
 
 const loadItems = () => {
@@ -28,33 +19,33 @@ const printItem = elm => {
   const div = document.createElement("div");
   div.style = "";
   div.innerHTML = `<div class="card ">
-  <div class="ratio ratio-4x3">
-                    <img src="${elm.imageUrl}" class="card-img-top " alt="${elm.name}" />
+                    <div class="ratio ratio-4x3">
+                      <img src="${elm.imageUrl}" class="card-img-top " alt="${elm.name}" />
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title fw-bold">${elm.name}</h5>
-                        <p class="card-text">
+                      <h5 class="card-title fw-bold">${elm.name}</h5>
+                      <p class="card-text">
                         ${elm.description}
-                        </p>
-                        
-                          <p class="card-text fw-bold">
-                          ${elm.price} €
-                          </p>
-                          <a href="back-office.html?id=${elm._id}" class="btn btn-primary btn-sm">edit</a>
-                          <a href="detail.html?id=${elm._id}" class="btn btn-primary btn-sm">more info</a>
-                        
+                      </p>
+                      <p class="card-text fw-bold">
+                        ${elm.price} €
+                      </p>
+                      <a href="back-office.html?id=${elm._id}" class="btn btn-primary btn-sm">edit</a>
+                      <a href="detail.html?id=${elm._id}" class="btn btn-primary btn-sm">more info</a>          
                     </div>
-                    </div>`;
+                  </div>`;
   document.querySelector("main > .container > .row").appendChild(div);
 };
 
 function handleErrors(response) {
   if (!response.ok) {
-    console.log("errore della malora");
+    console.log(response);
+    appendAlert(response.statusText, "danger");
     throw Error(response.statusText);
   }
   return response;
 }
+
 const alertPlaceholder = document.getElementById("liveAlertPlaceholder");
 const appendAlert = (message, type) => {
   const wrapper = document.createElement("div");
@@ -67,10 +58,3 @@ const appendAlert = (message, type) => {
 
   alertPlaceholder.append(wrapper);
 };
-
-const alertTrigger = document.getElementById("liveAlertBtn");
-if (alertTrigger) {
-  alertTrigger.addEventListener("click", () => {
-    appendAlert("Nice, you triggered this alert message!", "success");
-  });
-}
